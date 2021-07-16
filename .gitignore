@@ -1,3 +1,4 @@
 *.env
 __pycache_/*
 *.pyc
+*.crt
