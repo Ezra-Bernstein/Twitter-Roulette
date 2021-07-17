@@ -11,7 +11,8 @@ conn = psycopg2.connect(CONNECTION_STRING)
 cur = conn.cursor()
 
 def newGame(code):
-    cur.execute("create table if not exists " + code + " (username STRING NOT NULL, vip BOOLEAN, guess STRING, points INT)")
+    cur.execute("create table if not exists " + code + " (username STRING NOT NULL, vip BOOLEAN, guess1 STRING, \
+        guess2 STRING, guess3 STRING, guess4 STRING, guess5 STRING, points INT)")
     conn.commit()
 
 def gameExists(code):
@@ -25,14 +26,16 @@ def tableEmpty(code):
     return exists
 
 def addUserToGame(username, code):
-    vip = not tableEmpty(code)
+    vip = tableEmpty(code)
     cur.execute("insert into "+ code +" values (%s, %s, %s, %s)", (username, str(vip), "", str(0)))
     conn.commit()
 
-# def checkGuess():
+def getUsers(code):
+    cur.execute("select * from " + code)
+    return cur.fetchall()
 
-# newGame('asdf')
-# print (gameExists('asdf'))
-# print (tableEmpty('asdf'))
-# addUserToGame('username', 'asdf')
-# print (tableEmpty('asdf'))
+def getUser(code, username):
+    cur.execute("select * from " + code + " where username = %s", (username,) )
+    return cur.fetchone()
+
+#print(getUser('xbnkrp', 'joe'))

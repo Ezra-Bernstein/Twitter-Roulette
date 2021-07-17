@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, request, session
 import random, string
 from database import *
+import jinja2
 
 
 app = Flask(__name__)
@@ -16,20 +17,32 @@ def hello_world():
 @app.route('/createGame', methods=['POST'])
 def createGame():
 
-    code = ''.join(random.SystemRandom().choice(string.ascii_uppercase) for _ in range(6))
+    code = ''.join(random.SystemRandom().choice(string.ascii_lowercase) for _ in range(6))
     print (code)
-    #newGame(code)
+    session['code'] = code
+    newGame(code)
+    
+
+    return render_template('name.html')
+
+
 
 
 @app.route("/joinGame", methods=['POST'])
 def joinGame():
 
     code = request.form['code']
-    session['code'] = code
     print(code)
+    print (gameExists(code))
 
-    # if (gameExists(code)):
-    return render_template('name.html')
+    if (gameExists(code)):
+        code = request.form['code']
+        session['code'] = code
+        print(code)
+        return render_template('name.html')
+
+    else:
+        return render_template('home.html')
 
 @app.route("/name", methods=['POST'])
 def name():
@@ -37,8 +50,15 @@ def name():
     username = request.form['username']
     session['username'] = username
 
-    #addUserToGame(session['code'], username)
-    return render_template('game.html')
+
+    addUserToGame(username, session['code'])
+    return render_template('start.html', user = getUser(session['code'], session['username']))
+
+
+@app.route('/start', methods=['POST'])
+def start():
+    print("game started!")
+    return render_template('game.html', users=getUsers(session['code']))
 
     
 @app.route("/guess", methods=['POST'])
@@ -49,4 +69,4 @@ def guess():
     guess = request.form['guess']
     
     #checkGuess()
-    return render_template('game.html')
+    return render_template('game.html', users=getUsers(session['code']))
