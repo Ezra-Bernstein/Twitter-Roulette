@@ -70,3 +70,32 @@ def guess():
     
     #checkGuess()
     return render_template('game.html', users=getUsers(session['code']))
+
+
+
+
+
+
+#client functions
+
+
+@app.route('/_getUser', methods=['GET'])
+def _getUser():
+    code = request.args['code']
+    username = request.args['username']
+
+    return str(getUser(code, username))
+
+@app.route('/_createGame', methods=['GET'])
+def _createGame():
+    code = ''.join(random.SystemRandom().choice(string.ascii_lowercase) for _ in range(6))
+    newGame(code)
+    return code
+
+@app.route('/_getUsers', methods=['GET'])
+def _getUser():
+    code = request.args['code']
+
+    return str(getUsers(code))
+
+

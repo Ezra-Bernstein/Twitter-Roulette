@@ -2,3 +2,4 @@
 __pycache_/*
 *.pyc
 *.crt
+*.import
