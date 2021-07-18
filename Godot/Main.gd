@@ -4,7 +4,6 @@ extends Node2D
 # var a = 2
 # var b = "text"
 var http_request = HTTPRequest.new()
-var GAME_CODE
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,7 +15,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass;
+	$Timer_Label.text = str($Timer.time_left)
 
 func _on_Button_pressed():
 	http_request.connect("request_completed", self, "_on_request_completed")
@@ -25,11 +24,11 @@ func _on_Button_pressed():
 
 
 func _on_request_completed(result, response_code, headers, body):
-	GAME_CODE = body.get_string_from_utf8()
-	print(GAME_CODE)
-	$Label.text = "GAME CODE: " + GAME_CODE
+	Global.GAME_CODE = body.get_string_from_utf8()
+	print(Global.GAME_CODE)
+	$Label.text = "GAME CODE: " + Global.GAME_CODE
 	
-	$Timer.wait_time = 5
+	$Timer.wait_time = 30
 	$Timer.start()
 	
 	

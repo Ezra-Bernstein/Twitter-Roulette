@@ -30,8 +30,10 @@ __meta__ = {
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Timer_Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
+margin_left = 484.068
+margin_top = 379.477
+margin_right = 524.068
+margin_bottom = 393.477
 __meta__ = {
 "_edit_use_anchors_": false
 }
