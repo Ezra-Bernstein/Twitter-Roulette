@@ -20,7 +20,7 @@ def hello_world():
 def createGame():
 
     code = ''.join(random.SystemRandom().choice(string.ascii_lowercase) for _ in range(6))
-    print (code)
+
     session['code'] = code
     newGame(code)
     
@@ -28,19 +28,15 @@ def createGame():
     return render_template('name.html')
 
 
-
-
 @app.route("/joinGame", methods=['POST'])
 def joinGame():
 
     code = request.form['code']
-    print(code)
-    print (gameExists(code))
+    code = code.lower()
 
     if (gameExists(code)):
         code = request.form['code']
         session['code'] = code
-        print(code)
         return render_template('name.html')
 
     else:
@@ -52,7 +48,6 @@ def name():
     username = request.form['username']
     session['username'] = username
 
-
     addUserToGame(username, session['code'])
     return render_template('start.html', user = getUser(session['code'], session['username']))
 
@@ -60,7 +55,7 @@ def name():
 @app.route('/start', methods=['POST'])
 def start():
     print("game started!")
-    return render_template('game.html', users=getUsers(session['code']))
+    return render_template('game.html', users=getUsers(session['code']), round = getCurrentRound(session['code'], session['username']))
 
     
 @app.route("/guess", methods=['POST'])
@@ -72,15 +67,13 @@ def guess():
     username = session['username']
     code = session['code']
     round = getCurrentRound(code, username)
-    # print("guess: " + guess)
-    # print("round: " + str(round))
 
     checkGuess(code, round, username, guess)
-    return render_template('game.html', users=getUsers(session['code']))
-
+    if round == 5:
+        return render_template('results.html')
+    return render_template('game.html', users=getUsers(session['code']), round = getCurrentRound(session['code'], session['username']))
 
 #client functions
-
 
 @app.route('/_getUser', methods=['GET'])
 def _getUser():
