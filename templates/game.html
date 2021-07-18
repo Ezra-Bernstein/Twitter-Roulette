@@ -9,7 +9,7 @@
 <body>
     <form action="/guess" method="POST">
         {% for user in users %}
-        <button type="submit" name='guess' value='{{ users[0] }}'>{{ user[0] }}</button>
+        <button type="submit" name='guess' value='{{ user[0] }}'>{{ user[0] }}</button>
         {% endfor %}
     </form>
 </body>
