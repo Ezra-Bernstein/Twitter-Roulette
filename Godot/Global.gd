@@ -5,7 +5,7 @@ extends Node
 # var a = 2
 # var b = "text"
 var GAME_CODE = ""
-var url = "https://2d856765833e.ngrok.io"
+var url = "https://2d856765833e.ngrok.io/"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
