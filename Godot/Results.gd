@@ -29,22 +29,36 @@ func _on_request_completed(result, response_code, headers, body):
 			responseText[index] = '['
 		elif i == ')':
 			responseText[index] = ']'
+		elif i == '\'':
+			responseText[index] = '"'
 		index += 1
+		
+	if "True" in responseText:
+		responseText = responseText.replace("True", "true")
+	if "False" in responseText:
+		responseText = responseText.replace("False", "false")
 	
 	print(responseText)
-	print(JSON.parse(responseText))
-	print(JSON.parse(responseText).result)
-	print(JSON.parse(responseText).get_result())
-	print(typeof(JSON.parse(responseText).result))
 	
-	
-	var userList = JSON.parse(responseText).get_result()
-	print(userList)
+	print(str2var(responseText))
+	var userList = str2var(responseText)
 	for user in userList:
-		$Scores.text += user[0] + " : " + user[7] + "\n"
+		$Scores.text += user[0] + " : " + str(user[7])+ "\n"
 	
-	userList = JSON.parse(responseText).result
-	print(userList)
-	for user in userList:
-		$Scores.text += user[0] + " : " + user[7] + "\n"
+	
+#	print(JSON.parse(responseText))
+#	print(JSON.parse(responseText).result)
+#	print(JSON.parse(responseText).get_result())
+#	print(typeof(JSON.parse(responseText).result))
+#
+	
+#	var userList = JSON.parse(responseText).get_result()
+#	print(userList)
+#	for user in userList:
+#		$Scores.text += user[0] + " : " + user[7] + "\n"
+#
+#	userList = JSON.parse(responseText).result
+#	print(userList)
+#	for user in userList:
+#		$Scores.text += user[0] + " : " + user[7] + "\n"
 	
