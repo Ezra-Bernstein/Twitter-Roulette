@@ -41,7 +41,7 @@ def joinGame():
     if (gameExists(code)):
         code = request.form['code']
         session['code'] = code
-        return render_template('name.html')
+        return render_template('name.html' , code = session['code'])
 
     else:
         return render_template('home.html')
@@ -54,7 +54,7 @@ def name():
         session['username'] = username
 
         addUserToGame(username, session['code'])
-        return render_template('start.html', user = getUser(session['code'], session['username']))
+        return render_template('start.html', user = getUser(session['code'], session['username']), code = session['code'])
     else:
         return render_template('name.html')
 
@@ -62,7 +62,7 @@ def name():
 @app.route('/start', methods=['POST'])
 def start():
     print("game started!")
-    return render_template('game.html', users=getUsers(session['code']), round = getCurrentRound(session['code'], session['username']))
+    return render_template('game.html', users=getUsers(session['code']), round = getCurrentRound(session['code'], session['username']), code = session['code'])
 
     
 @app.route("/guess", methods=['POST'])
@@ -78,7 +78,8 @@ def guess():
     checkGuess(code, round, username, guess)
     if round == 5:
         return render_template('results.html')
-    return render_template('game.html', users=getUsers(session['code']), round = getCurrentRound(session['code'], session['username']))
+    return render_template('game.html', users=getUsers(session['code']), round = getCurrentRound(session['code'], session['username']), code = session['code'])
+
 
 #client functions
 

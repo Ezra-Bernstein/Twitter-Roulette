@@ -11,6 +11,7 @@
     <title>Twitter Roulette</title>
 </head>
 <body class="bg-dark" onload="setTimeout(submitForm, 10000);">
+    <p class=" text-white text-center">{{ code }}</p>
 
     <form action="/guess" method="POST" name="guessForm" onsubmit="checkTimer();"  class="position-absolute top-50 start-50 translate-middle">
         <h1 class="text-center text-white">Round {{ round + 1 }}</h1>
