@@ -2,7 +2,9 @@ from flask import Flask
 from flask import render_template, request, session
 import random, string
 from database import *
+from twitter import *
 import jinja2
+
 
 
 app = Flask(__name__)
@@ -67,13 +69,14 @@ def guess():
     #print(session['username'], session['code'])
 
     guess = request.form['guess']
-    
-    #checkGuess()
+    username = session['username']
+    code = session['code']
+    round = getCurrentRound(code, username)
+    # print("guess: " + guess)
+    # print("round: " + str(round))
+
+    checkGuess(code, round, username, guess)
     return render_template('game.html', users=getUsers(session['code']))
-
-
-
-
 
 
 #client functions
@@ -93,9 +96,25 @@ def _createGame():
     return code
 
 @app.route('/_getUsers', methods=['GET'])
-def _getUser():
+def _getUsers():
     code = request.args['code']
 
     return str(getUsers(code))
 
+@app.route('/_getTweet', methods=['GET'])
+def _getTweet():
 
+    code = request.args['code']
+    
+    username = getRandomUser(code)
+    round = getNextNullRound(code, username)
+
+    setAnswer(code, round, username)
+
+    return getRandomTweet(username)
+
+
+
+
+if __name__ == "__main__":
+   app.run(host="0.0.0.0", port=5000, debug=True)
