@@ -1,11 +1,14 @@
 from flask import Flask
 from flask import render_template, request, session
 import random, string
+from dotenv import load_dotenv
 from database import *
 from twitter import *
 import jinja2
 
+load_dotenv()
 
+APP_SECRET_KEY=os.environ.get('APP_SECRET_KEY')
 
 app = Flask(__name__)
 
