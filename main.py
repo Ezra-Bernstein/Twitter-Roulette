@@ -17,6 +17,7 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/' #will be changed for production
 
 @app.route("/")
 def hello_world():
+    session.clear()
     return render_template('home.html')
 
 @app.route('/createGame', methods=['POST'])
