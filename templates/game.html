@@ -10,14 +10,33 @@
 
     <title>Twitter Roulette</title>
 </head>
-<body class="bg-dark">
+<body class="bg-dark" onload="setTimeout(submitForm, 10000);">
 
-    <form action="/guess" method="POST"  class="position-absolute top-50 start-50 translate-middle">
-        <h1 class="text-center text-white">Round {{ round }}</h1>
-        <h2 class="text-center text-white">Choose who you think wrote this tweet!</h1>
+    <form action="/guess" method="POST" name="guessForm" onsubmit="checkTimer();"  class="position-absolute top-50 start-50 translate-middle">
+        <h1 class="text-center text-white">Round {{ round + 1 }}</h1>
+        <h3 class="text-center text-secondary mb-5">Choose who you think wrote this tweet!</h1>
         {% for user in users %}
-        <button type="submit" name='guess' value='{{ user[0] }}' class="btn btn-outline-primary">{{ user[0] }}</button>
+        <button type="submit"  name='guess' value='{{ user[0] }}' class="btn btn-outline-info container-fluid">{{ user[0] }}</button>
         {% endfor %}
     </form>
 </body>
+
+<!-- <script>
+    const today = new Date();
+    console.log('today: ', today)
+
+    function checkTimer() {
+        const timeNow = new Date();
+        console.log(today - timeNow);
+        setTimeout(submitForm, 10000 - (today - timeNow));
+        return false;
+    }
+
+    function submitForm() {
+        document.guessForm.submit();
+    }
+
+</script> -->
+
+
 </html>
