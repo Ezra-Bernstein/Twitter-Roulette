@@ -13,3 +13,7 @@ def getRandomTweet(username):
     index = random.randint(0, len(r.json())-1)
     print(r.json()[index]['full_text'])
     return r.json()[index]['full_text']
+
+def checkUsername(username):
+    r = requests.get("https://api.twitter.com/1.1/users/lookup.json?screen_name="+username, headers={'Authorization': 'Bearer '+BEARER})
+    return type(r.json()) is not dict

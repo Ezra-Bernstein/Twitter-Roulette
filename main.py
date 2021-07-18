@@ -50,10 +50,13 @@ def joinGame():
 def name():
 
     username = request.form['username']
-    session['username'] = username
+    if checkUsername(username):
+        session['username'] = username
 
-    addUserToGame(username, session['code'])
-    return render_template('start.html', user = getUser(session['code'], session['username']))
+        addUserToGame(username, session['code'])
+        return render_template('start.html', user = getUser(session['code'], session['username']))
+    else:
+        return render_template('name.html')
 
 
 @app.route('/start', methods=['POST'])
