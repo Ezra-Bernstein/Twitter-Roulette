@@ -12,7 +12,7 @@ func _ready():
 	$Code.hide()
 	add_child(http_request)
 #	http_request.connect("request_completed", self, "_on_request_completed")
-#	http_request.request("http://localhost:5000/_getUser?code=bddgbi&username=bob")
+#	http_request.request(Global.url + "_getUser?code=bddgbi&username=bob")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -20,13 +20,13 @@ func _process(delta):
 
 func _on_Button_pressed():
 	http_request.connect("request_completed", self, "_on_request_completed")
-	http_request.request("http://localhost:5000/_createGame")
+	http_request.request(Global.url + "_createGame")
 	$Button.disabled = true
 
 func _on_request_completed(result, response_code, headers, body):
 	Global.GAME_CODE = body.get_string_from_utf8()
 	print(Global.GAME_CODE)
-	$Code.text = "Go to 192.168.1.6:5000/ and enter the game code below! \nGAME CODE: " + Global.GAME_CODE.to_upper()
+	$Code.text = "Go to "+ Global.url + " and enter the game code below! \nGAME CODE: " + Global.GAME_CODE.to_upper()
 	$Code.show()
 	
 	$Timer.wait_time = 30

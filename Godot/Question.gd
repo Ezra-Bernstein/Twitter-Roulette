@@ -13,7 +13,7 @@ var question
 func _ready():
 	add_child(http_request)
 	http_request.connect("request_completed", self, "_on_request_completed")
-	http_request.request("http://localhost:5000/_getTweet?code=" + Global.GAME_CODE)
+	http_request.request(Global.url + "_getTweet?code=" + Global.GAME_CODE)
 	$Timer.wait_time = 10
 	
 
@@ -33,7 +33,7 @@ func _on_request_completed(result, response_code, headers, body):
 func _on_Timer_timeout():
 	if counter < 6:
 		$Timer.wait_time = 10
-		http_request.request("http://localhost:5000/_getTweet?code=" + Global.GAME_CODE)
+		http_request.request(Global.url + "_getTweet?code=" + Global.GAME_CODE)
 		
 	else:
 		$Timer.wait_time = 0

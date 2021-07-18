@@ -15,7 +15,7 @@ func _ready():
 	
 	#get GAME_CODE from Main??
 	print(Global.GAME_CODE)
-	http_request.request("http://localhost:5000/_getUsers?code=" + Global.GAME_CODE)
+	http_request.request(Global.url + "_getUsers?code=" + Global.GAME_CODE)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
