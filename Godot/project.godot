@@ -17,15 +17,21 @@ _global_script_class_icons={
 
 config/name="Twitter-Roulette-Godot"
 run/main_scene="res://Main.tscn"
+boot_splash/bg_color=Color( 0.0980392, 0.109804, 0.121569, 1 )
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://Global.gd"
 
+[display]
+
+window/size/resizable=false
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
+environment/default_clear_color=Color( 0.0980392, 0.109804, 0.121569, 1 )
 environment/default_environment="res://default_env.tres"

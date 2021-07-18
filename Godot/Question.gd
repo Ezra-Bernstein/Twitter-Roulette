@@ -20,12 +20,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$Timer_Label.text = str($Timer.time_left)
+	$Timer_Label.text = "Time left to answer: " + str(round($Timer.time_left)) + " seconds"
 
 func _on_request_completed(result, response_code, headers, body):
 	question = str(body.get_string_from_utf8())
 	print("QUESTION " + question)
-	$Question_Label.text = question
+	$Question_Label.text = "“" + question + "”"
 	$Timer.start()
 	counter += 1
 	$Round_Label.text = "ROUND " + str(counter-1)
@@ -38,7 +38,7 @@ func _on_Timer_timeout():
 	else:
 		$Timer.wait_time = 0
 		$Timer.stop()
-		$Timer_Label.text = str($Timer.time_left)
+		$Timer_Label.text = "Time left to answer: " + str(round($Timer.time_left)) + " seconds"
 		$Question_Label.text = "GAME OVER"
 		get_tree().change_scene("res://Results.tscn")
 		
