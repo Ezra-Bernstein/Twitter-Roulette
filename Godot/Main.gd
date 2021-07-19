@@ -29,7 +29,7 @@ func _on_request_completed(result, response_code, headers, body):
 	$Code.text = "Go to "+ Global.url + " and enter the game code below! \nGAME CODE: " + Global.GAME_CODE.to_upper()
 	$Code.show()
 	
-	$Timer.wait_time = 30
+	$Timer.wait_time = 60
 	$Timer_Label.show()
 	$Timer.start()
 
